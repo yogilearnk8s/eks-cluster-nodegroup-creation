@@ -24,7 +24,7 @@ filter {
 data "aws_subnet" "public-subnets" {
 //count = "${length(data.aws_subnet_ids.public-subnets.ids)}"
 count = "${length(var.public-subnet-cidr)}"
-id = "${tolist(data.aws_subnet_ids.public-subnets.ids)[count.index]}"
+id = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
 }
 
 data "aws_iam_role" "example" {
