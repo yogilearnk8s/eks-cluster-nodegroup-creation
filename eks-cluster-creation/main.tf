@@ -12,7 +12,7 @@ filter {
 
 
 data "aws_subnet" "public-subnets" {
-count = "${length(var.public-subnet-cidr)}"
+//count = "${length(var.public-subnet-cidr)}"
   vpc_id = data.aws_vpc.yogi-vpc.id
 
   filter {
