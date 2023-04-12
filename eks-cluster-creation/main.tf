@@ -25,7 +25,11 @@ data "aws_subnet" "public-subnets" {
 //count = "${length(data.aws_subnet_ids.public-subnets.ids)}"
 count = "${length(var.public-subnet-cidr)}"
 //id = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
-  id = data.aws_subnet.public-subnets[count.index].id
+  id = data.aws_subnet.public-subnets[count.index]
+  filter {
+   name = "tag:Name"
+   values = ["public-subnet-*"]
+  }
 }
 
 data "aws_iam_role" "example" {
@@ -45,7 +49,7 @@ count = "${length(var.public-subnet-cidr)}"
   endpoint_public_access  = true
   //subnet_ids = "${element(data.aws_subnet.public-subnets.*.id, count.index)}"
   //subnet_ids = data.aws_subnet.public-subnets[count.index]
-  subnet_ids =  data.aws_subnet.public-subnets[*].id
+  subnet_ids =  data.aws_subnet.public-subnets[*]
  }
 
 // depends_on = [
