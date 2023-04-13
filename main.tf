@@ -18,11 +18,11 @@ source = "./eks-role"
 
 module "eks_cluster_creation" {
   source = "./eks-cluster-creation"
-  depends_on = ["module.eks_nodegroup_role"]
+  depends_on = [module.eks_nodegroup_role]
 }
 
 module "nodegroup_creation" {
 source = "./node-group-creation"
-depends_on = ["module.eks_cluster_creation"]
+depends_on = [module.eks_cluster_creation]
 }
 
