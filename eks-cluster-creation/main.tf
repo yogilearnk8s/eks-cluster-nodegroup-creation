@@ -47,7 +47,7 @@ count = "${length(var.public-subnet-cidr)}"
 
 
  vpc_config {
- for_each = data.aws_subnet.public-subnets.ids
+ //for_each = data.aws_subnet.public-subnets.ids
   endpoint_private_access = false
   endpoint_public_access  = true
   subnet_ids = flatten([data.aws_subnet.public-subnets[*].id])
