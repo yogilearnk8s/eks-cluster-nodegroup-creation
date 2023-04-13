@@ -40,18 +40,18 @@ resource "aws_subnet" "public-subnets" {
 //  }
 //}
 
-data "aws_subnet_ids" "public-subnets-1" {
-vpc_id = data.aws_vpc.yogi-vpc.id
+//data "aws_subnet_ids" "public-subnets-1" {
+//vpc_id = data.aws_vpc.yogi-vpc.id
 //count = "${length(data.aws_subnet.public-subnets.id)}"
 //count = data.aws_subnet.public-subnets[count.index]
-count = "${length(var.public-subnet-cidr)}"
+//count = "${length(var.public-subnet-cidr)}"
 //id = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
   //id = data.aws_subnet.public-subnets[count.index]
-  filter {
-   name = "tag:Name"
-   values = ["public-subnet-*"]
-  }
-}
+//  filter {
+//   name = "tag:Name"
+//   values = ["public-subnet-*"]
+//  }
+//}
 
 data "aws_iam_role" "example" {
   name = "sandboxcluster-eks-iam-role"
