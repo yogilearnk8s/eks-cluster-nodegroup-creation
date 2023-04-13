@@ -41,19 +41,22 @@ data "aws_iam_role" "example" {
 
 resource "aws_eks_cluster" "eks_sandbox_cluster" {
 count = "${length(var.public-subnet-cidr)}"
+ 
  name = var.eks-cluster-name
  role_arn = data.aws_iam_role.example.arn
 
 
  vpc_config {
+ for_each = data.aws_subnet.public-subnets.ids
   endpoint_private_access = false
   endpoint_public_access  = true
  // subnet_ids = "${element(data.aws_subnet.public-subnets.*.id, count.index)}"
-  subnet_ids = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
+ // subnet_ids = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
   //subnet_ids = data.aws_subnet.public-subnets[count.index]
   //subnet_ids =  data.aws_subnet.public-subnets[*]
     //subnet_ids = ["${data.aws_subnet.public-subnets.ids}"]    
-	//subnet_ids = values(data.aws_subnet.public-subnets)[*].id
+	//subnet_ids = values(data.aws_subnet.public-subnets)[*].id\
+	subent_ids = each.value
  }
 
 // depends_on = [
