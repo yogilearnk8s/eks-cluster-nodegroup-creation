@@ -23,7 +23,8 @@ filter {
 
 data "aws_subnet" "public-subnets" {
 vpc_id = data.aws_vpc.yogi-vpc.id
-count = "${length(data.aws_subnet.public-subnets.id)}"
+//count = "${length(data.aws_subnet.public-subnets.id)}"
+count = data.aws_subnet.public-subnets[count.index]
 //count = "${length(var.public-subnet-cidr)}"
 //id = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
   //id = data.aws_subnet.public-subnets[count.index]
