@@ -18,7 +18,7 @@ data "aws_availability_zones" "yogi-az" {
 resource "aws_subnet" "public-subnets" {
   
 
-  vpc_id            = aws_vpc.this.id
+  vpc_id            = data.aws_vpc.yogi-vpc.id
   cidr_block = var.public-subnet-cidr[count.index]
  
 
