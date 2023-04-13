@@ -15,7 +15,7 @@ data "aws_availability_zones" "yogi-az" {
   state = "available"
 }
 
-resource "aws_subnet" "public" {
+resource "aws_subnet" "public-subnets" {
   
 
   vpc_id            = aws_vpc.this.id
@@ -40,7 +40,7 @@ resource "aws_subnet" "public" {
 //  }
 //}
 
-data "aws_subnet_ids" "public-subnets" {
+data "aws_subnet_ids" "public-subnets-1" {
 vpc_id = data.aws_vpc.yogi-vpc.id
 //count = "${length(data.aws_subnet.public-subnets.id)}"
 //count = data.aws_subnet.public-subnets[count.index]
