@@ -48,7 +48,8 @@ count = "${length(var.public-subnet-cidr)}"
  vpc_config {
   endpoint_private_access = false
   endpoint_public_access  = true
-  subnet_ids = "${element(data.aws_subnet.public-subnets.*.id, count.index)}"
+ // subnet_ids = "${element(data.aws_subnet.public-subnets.*.id, count.index)}"
+  subnet_ids = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
   //subnet_ids = data.aws_subnet.public-subnets[count.index]
   //subnet_ids =  data.aws_subnet.public-subnets[*]
  }
