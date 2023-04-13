@@ -20,7 +20,7 @@ resource "aws_subnet" "public" {
 
   vpc_id            = aws_vpc.this.id
   cidr_block = var.public-subnet-cidr[count.index]
-  availability_zone = data.aws_availability_zones.yogi-az.names[count.index]
+ 
 
   tags = {
     Name = "Public-k8s-subnet"
