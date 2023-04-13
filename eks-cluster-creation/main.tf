@@ -51,7 +51,8 @@ count = "${length(var.public-subnet-cidr)}"
  // subnet_ids = "${element(data.aws_subnet.public-subnets.*.id, count.index)}"
  // subnet_ids = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
   //subnet_ids = data.aws_subnet.public-subnets[count.index]
-  subnet_ids =  data.aws_subnet.public-subnets[*]
+  //subnet_ids =  data.aws_subnet.public-subnets[*]
+    subnet_ids = ["${data.aws_subnet_ids.private.ids}"]
  }
 
 // depends_on = [
