@@ -21,7 +21,7 @@ filter {
 //  }
 //}
 
-data "aws_subnet" "public-subnets" {
+data "aws_subnet_ids" "public-subnets" {
 vpc_id = data.aws_vpc.yogi-vpc.id
 //count = "${length(data.aws_subnet.public-subnets.id)}"
 //count = data.aws_subnet.public-subnets[count.index]
@@ -51,7 +51,7 @@ count = "${length(var.public-subnet-cidr)}"
  //for_each = data.aws_subnet.public-subnets.ids
   endpoint_private_access = false
   endpoint_public_access  = true
-  subnet_ids = flatten([data.aws_subnet.public-subnets[*].id])
+  subnet_ids = flatten([data.aws_subnet_ids.public-subnets[*].id])
  // subnet_ids = "${element(data.aws_subnet.public-subnets.*.id, count.index)}"
  // subnet_ids = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
   //subnet_ids = data.aws_subnet.public-subnets[count.index]
