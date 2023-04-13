@@ -19,7 +19,7 @@ resource "aws_subnet" "public-subnets" {
   count = 3
 
   vpc_id            = data.aws_vpc.yogi-vpc.id
-  cidr_block = var.public-subnet-cidr[count.index]
+  cidr_block = var.public-subnet-cidr1[count.index]
  
 
   tags = {
