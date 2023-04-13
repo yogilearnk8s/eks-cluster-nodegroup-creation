@@ -2,12 +2,31 @@
 //  region     = "ap-south-1"
 //}
 
+
 data "aws_vpc" "yogi-vpc"{
 
 filter {
  name = "tag:Name"
  values = ["Yogi-VPC-DevOps"]
 }
+}
+
+data "aws_availability_zones" "yogi-az" {
+  state = "available"
+}
+
+resource "aws_subnet" "public" {
+  
+
+  vpc_id            = aws_vpc.this.id
+  cidr_block = var.public-subnet-cidr[count.index]
+  availability_zone = data.aws_availability_zones.yogi-az.names[count.index]
+
+  tags = {
+    Name = "Public-k8s-subnet"
+  }
+    availability_zone = "${data.aws_availability_zones.yogi-az.names[count.index]}"
+  map_public_ip_on_launch = true
 }
 
 
@@ -51,7 +70,7 @@ count = "${length(var.public-subnet-cidr)}"
  //for_each = data.aws_subnet.public-subnets.ids
   endpoint_private_access = false
   endpoint_public_access  = true
-  subnet_ids = flatten([data.aws_subnet_ids.public-subnets[*].id])
+  subnet_ids = flatten([aws_subnet.public-subnets[*].id])
  // subnet_ids = "${element(data.aws_subnet.public-subnets.*.id, count.index)}"
  // subnet_ids = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
   //subnet_ids = data.aws_subnet.public-subnets[count.index]
