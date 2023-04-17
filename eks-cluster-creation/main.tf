@@ -79,7 +79,9 @@ count = "${length(var.public-subnet-cidr)}"
 	//subnet_ids = values(data.aws_subnet.public-subnets)[*].id\
 	//subnet_ids = each.value
  }
-
+ timeouts {
+ create = "30m"
+ }
 // depends_on = [
 //  aws_iam_role.eks-iam-role,
 // ]
