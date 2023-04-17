@@ -82,8 +82,8 @@ count = "${length(var.public-subnet-cidr)}"
  timeouts {
  create = "30m"
  }
-// depends_on = [
-//  aws_iam_role.eks-iam-role,
-// ]
+ depends_on = [
+  data.aws_iam_role.example
+ ]
 }
 
