@@ -61,7 +61,7 @@ data "aws_iam_role" "example" {
 
 resource "aws_eks_cluster" "eks_sandbox_cluster" {
 count = "${length(var.public-subnet-cidr)}"
- 
+ version = 1.26
  name = var.eks-cluster-name
  role_arn = data.aws_iam_role.example.arn
 

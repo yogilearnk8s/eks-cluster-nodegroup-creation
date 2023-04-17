@@ -21,8 +21,8 @@ module "eks_cluster_creation" {
   depends_on = [module.eks_nodegroup_role]
 }
 
-module "nodegroup_creation" {
-source = "./node-group-creation"
-depends_on = [module.eks_cluster_creation]
-}
+//module "nodegroup_creation" {
+//source = "./node-group-creation"
+//depends_on = [module.eks_cluster_creation]
+//}
 
