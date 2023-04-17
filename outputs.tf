@@ -9,7 +9,7 @@ output "eks_cluster_creation" {
 
 }
 
-output "nodegroup_creation" {
-  description = "internet gateway arn"
-  value = module.nodegroup_creation
-}
+//output "nodegroup_creation" {
+//  description = "internet gateway arn"
+//  value = module.nodegroup_creation
+//}
