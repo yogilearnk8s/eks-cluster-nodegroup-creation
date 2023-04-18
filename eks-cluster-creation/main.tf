@@ -29,6 +29,22 @@ resource "aws_subnet" "public-subnets" {
   map_public_ip_on_launch = true
 }
 
+data "aws_route_table" "publicrt" {
+  filter {
+   Name = "tag:Name"
+   Value = "Default-Route-Table"
+  }
+}
+
+
+resource "aws_route_table_association" "public-route-1" {
+  count = "${length(var.public-subnet-cidr)}"
+  //subnet_id      = "${data.aws_subnet_ids.public-subnets.ids}"
+  //subnet_id =   "${element(data.aws_subnet.public-subnets.*.id, count.index)}" 
+  subnet_id = data.aws_subnet.public-subnets.*.id
+  route_table_id = data.aws_route_table.publicrt.id
+}
+
 
 //data "aws_subnet" "public-subnets" {
 //count = "${length(var.public-subnet-cidr)}"
