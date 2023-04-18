@@ -41,7 +41,7 @@ resource "aws_route_table_association" "public-route-1" {
   count = "${length(var.public-subnet-cidr)}"
   //subnet_id      = "${data.aws_subnet_ids.public-subnets.ids}"
   //subnet_id =   "${element(data.aws_subnet.public-subnets.*.id, count.index)}" 
-  subnet_id = "${element(aws_subnet.public-subnets.*.id)}"
+  subnet_id = "${element(aws_subnet.public-subnets.*.id, count.index)}"
   route_table_id = data.aws_route_table.publicrt.id
 }
 
