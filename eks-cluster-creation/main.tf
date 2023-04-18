@@ -2,6 +2,16 @@
 //  region     = "ap-south-1"
 //}
 
+resource "aws_security_group" "example_sg" {
+  # ... other configuration ...
+
+  egress {
+    from_port        = 0
+    to_port          = 65535
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+	}
+}
 
 data "aws_vpc" "yogi-vpc"{
 
@@ -81,7 +91,7 @@ count = "${length(var.public-subnet-cidr)}"
  version = 1.26
  name = var.eks-cluster-name
  role_arn = data.aws_iam_role.example.arn
-
+ security_group_ids = [aws_security_group.example_sg.id]
 
  vpc_config {
  //for_each = data.aws_subnet.public-subnets.ids
@@ -97,26 +107,7 @@ count = "${length(var.public-subnet-cidr)}"
 	//subnet_ids = each.value
  }
  
- 
-  cluster_security_group_additional_rules = {
-    ingress_nodes_ephemeral_ports_tcp = {
-      description                = "Nodes on ephemeral ports"
-      protocol                   = "tcp"
-      from_port                  = 1025
-      to_port                    = 65535
-      type                       = "ingress"
-      source_node_security_group = true
-    }
-    # Test: https://github.com/terraform-aws-modules/terraform-aws-eks/pull/2319
-    ingress_source_security_group_id = {
-      description              = "Ingress from another computed security group"
-      protocol                 = "tcp"
-      from_port                = 22
-      to_port                  = 22
-      type                     = "ingress"
-      source_security_group_id = aws_security_group.additional.id
-    }
-  }
+
  
  timeouts {
  create = "30m"
