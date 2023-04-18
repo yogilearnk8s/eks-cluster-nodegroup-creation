@@ -2,16 +2,7 @@
 //  region     = "ap-south-1"
 //}
 
-resource "aws_security_group" "example_sg" {
-  # ... other configuration ...
 
-  egress {
-    from_port        = 0
-    to_port          = 65535
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-	}
-}
 
 data "aws_vpc" "yogi-vpc"{
 
@@ -21,6 +12,16 @@ filter {
 }
 }
 
+resource "aws_security_group" "example_sg" {
+  # ... other configuration ...
+ vpc_id            = data.aws_vpc.yogi-vpc.id
+  egress {
+    from_port        = 0
+    to_port          = 65535
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+	}
+}
 data "aws_availability_zones" "yogi-az" {
   state = "available"
 }
