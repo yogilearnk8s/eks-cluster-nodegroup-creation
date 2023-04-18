@@ -30,6 +30,7 @@ resource "aws_subnet" "public-subnets" {
 }
 
 data "aws_route_table" "publicrt" {
+   vpc_id            = data.aws_vpc.yogi-vpc.id
   filter {
    name = "tag:Name"
    values = ["Default-Route-table"]
@@ -38,7 +39,7 @@ data "aws_route_table" "publicrt" {
 
 
 resource "aws_route_table_association" "public-route-1" {
-  count = "${length(var.public-subnet-cidr)}"
+  count = "${length(var.public-subnet-cidr1)}"
   //subnet_id      = "${data.aws_subnet_ids.public-subnets.ids}"
   //subnet_id =   "${element(data.aws_subnet.public-subnets.*.id, count.index)}" 
   subnet_id = "${element(aws_subnet.public-subnets.*.id, count.index)}"
