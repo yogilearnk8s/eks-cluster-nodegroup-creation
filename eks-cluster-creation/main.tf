@@ -33,7 +33,7 @@ data "aws_route_table" "publicrt" {
    vpc_id            = data.aws_vpc.yogi-vpc.id
   filter {
    name = "tag:Name"
-   values = ["Default-Route-table"]
+   values = ["public-route-table"]
   }
 }
 
