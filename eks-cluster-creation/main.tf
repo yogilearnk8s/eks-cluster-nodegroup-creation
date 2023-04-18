@@ -91,7 +91,7 @@ count = "${length(var.public-subnet-cidr)}"
  version = 1.26
  name = var.eks-cluster-name
  role_arn = data.aws_iam_role.example.arn
- security_group_ids = [aws_security_group.example_sg.id]
+ 
 
  vpc_config {
  //for_each = data.aws_subnet.public-subnets.ids
@@ -105,6 +105,7 @@ count = "${length(var.public-subnet-cidr)}"
     //subnet_ids = ["${data.aws_subnet.public-subnets.ids}"]    
 	//subnet_ids = values(data.aws_subnet.public-subnets)[*].id\
 	//subnet_ids = each.value
+	security_group_ids = [aws_security_group.example_sg.id]
  }
  
 
