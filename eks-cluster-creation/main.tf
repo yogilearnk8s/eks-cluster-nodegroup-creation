@@ -32,7 +32,7 @@ resource "aws_subnet" "public-subnets" {
 data "aws_route_table" "publicrt" {
   filter {
    name = "tag:Name"
-   values = "Default-Route-Table"
+   values = "Default-Route-*"
   }
 }
 
