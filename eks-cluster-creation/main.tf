@@ -1,9 +1,3 @@
-//provider "aws" {
-//  region     = "ap-south-1"
-//}
-
-
-
 data "aws_vpc" "yogi-vpc"{
 
 filter {
@@ -22,6 +16,7 @@ resource "aws_security_group" "example_sg" {
     cidr_blocks      = ["0.0.0.0/0"]
 	}
 }
+
 data "aws_availability_zones" "yogi-az" {
   state = "available"
 }
@@ -98,7 +93,8 @@ count = "${length(var.public-subnet-cidr)}"
  //for_each = data.aws_subnet.public-subnets.ids
   endpoint_private_access = false
   endpoint_public_access  = true
-  subnet_ids = flatten([aws_subnet.public-subnets[*].id])
+  subnet_ids = ["subnet-01c981ebb6a3cc99d", "subnet-00de42791071635e5"]
+  //subnet_ids = flatten([aws_subnet.public-subnets[*].id])
  // subnet_ids = "${element(data.aws_subnet.public-subnets.*.id, count.index)}"
  // subnet_ids = "${tolist(data.aws_subnet.public-subnets.ids)[count.index]}"
   //subnet_ids = data.aws_subnet.public-subnets[count.index]
@@ -109,13 +105,11 @@ count = "${length(var.public-subnet-cidr)}"
 	security_group_ids = [aws_security_group.example_sg.id]
  }
  
-
- 
  timeouts {
  create = "30m"
  }
- depends_on = [
-  data.aws_iam_role.example
- ]
+ //depends_on = [
+ // data.aws_iam_role.example
+ //]
 }
 
