@@ -53,16 +53,6 @@ resource "aws_route_table_association" "public-route-1" {
 }
 
 
-//data "aws_subnet" "public-subnets" {
-//count = "${length(var.public-subnet-cidr)}"
-//  vpc_id = data.aws_vpc.yogi-vpc.id
-
-//  filter {
-//    name   = "tag:Name"
-//    values = ["public-subnet-*"] 
-//  }
-//}
-
 //data "aws_subnet_ids" "public-subnets-1" {
 //vpc_id = data.aws_vpc.yogi-vpc.id
 //count = "${length(data.aws_subnet.public-subnets.id)}"
